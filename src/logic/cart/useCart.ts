@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ApolloError,
   useLazyQuery,
@@ -19,10 +19,11 @@ import {
 } from '../../apollo/mutations/addProductsToCart';
 import { translate } from '../../i18n';
 import { getCartCount } from '../utils/cartHelpers';
+import { Cart } from './Cart';
 
 interface Result {
   cartCount: string;
-  cartData: GetCartDataType | undefined;
+  cartData: Cart;
   cartLoading: boolean;
   cartError: ApolloError | undefined;
   addToCartLoading: boolean;
@@ -31,13 +32,22 @@ interface Result {
 }
 
 export const useCart = (): Result => {
-  const { data: { isLoggedIn = false } = {} } = useQuery<IsLoggedInDataType>(
+  const { data: { isLoggedIn = true } = {} } = useQuery<IsLoggedInDataType>(
     IS_LOGGED_IN,
   );
-  const [
-    fetchCart,
-    { data: cartData, loading: cartLoading, error: cartError },
-  ] = useLazyQuery<GetCartDataType>(GET_CART);
+
+  const [cart, setCart] = useState<Cart>({
+    id: 'cart0',
+    items: [],
+    prices: { grandTotal: undefined },
+    totalQuantity: 0,
+  });
+
+  // const [
+  //   fetchCart,
+  //   { data: cartData, loading: cartLoading, error: cartError},
+  // ] = useLazyQuery<GetCartDataType>(GET_CART);
+
   const [_addProductsToCart, { loading: addToCartLoading }] = useMutation<
     AddProductsToCartDataType,
     AddProductsToCartVars
@@ -58,23 +68,28 @@ export const useCart = (): Result => {
       });
     },
   });
-  const cartCount: string = getCartCount(cartData?.customerCart?.items?.length);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      fetchCart();
-    }
-  }, [isLoggedIn]);
+  const cartData: Cart = cart;
+  const cartLoading: boolean = false;
+  const cartError = undefined;
+
+  const cartCount: string = getCartCount(cartData.items?.length);
+
+  // useEffect(() => {
+  //   if (true/*isLoggedIn*/) {
+  //     fetchCart();
+  //   }
+  // }, [isLoggedIn]);
 
   const addProductsToCart = (productToAdd: CartItemInputType) => {
-    if (isLoggedIn && cartData?.customerCart.id) {
-      _addProductsToCart({
-        variables: {
-          cartId: cartData.customerCart.id,
-          cartItems: [productToAdd],
-        },
-      });
-    }
+    // if (isLoggedIn && cartData?.customerCart.id) {
+    _addProductsToCart({
+      variables: {
+        cartId: cartData.id,
+        cartItems: [productToAdd],
+      },
+    });
+    // }
   };
 
   return {

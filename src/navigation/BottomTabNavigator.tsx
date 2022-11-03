@@ -54,7 +54,7 @@ const BottomTabNavigator = ({ navigation }: Props) => {
         }}
         listeners={{
           tabPress: e => {
-            if (!data?.isLoggedIn) {
+            if (false /*!data?.isLoggedIn*/) {
               // Prevent default action
               e.preventDefault();
               showLoginPrompt(
@@ -80,7 +80,7 @@ const BottomTabNavigator = ({ navigation }: Props) => {
         }}
         listeners={{
           tabPress: e => {
-            if (!data?.isLoggedIn) {
+            if (false /*!data?.isLoggedIn*/) {
               // Prevent default action
               e.preventDefault();
               showLoginPrompt(

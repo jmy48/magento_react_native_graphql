@@ -43,17 +43,17 @@ const App = (): React.ReactElement => {
     return (
       <ApolloProvider client={client}>
         <SafeAreaProvider>
-          <ThemeProvider
+          {/* <ThemeProvider
             useDark={colorScheme === 'dark'}
             theme={colorScheme === 'dark' ? darkTheme : lightTheme}
-          >
-            <>
-              <OverflowMenuProvider>
-                <Navigator />
-              </OverflowMenuProvider>
-              <FlashMessage position="top" />
-            </>
-          </ThemeProvider>
+          > */}
+          <>
+            <OverflowMenuProvider>
+              <Navigator />
+            </OverflowMenuProvider>
+            <FlashMessage position="top" />
+          </>
+          {/* </ThemeProvider> */}
         </SafeAreaProvider>
       </ApolloProvider>
     );

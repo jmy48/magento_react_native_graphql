@@ -40,16 +40,16 @@ const CartScreen = ({ navigation }: Props): React.ReactElement => {
       loading={cartLoading}
       errorMessage={cartError?.message}
       footer={
-        (cartData?.customerCart?.items?.length ?? 0) > 0 && (
+        (cartData?.items?.length ?? 0) > 0 && (
           <CartFooter
-            grandTotal={cartData?.customerCart?.prices.grandTotal}
+            grandTotal={cartData?.prices.grandTotal}
             handlePlaceOrder={handlePlaceOrder}
           />
         )
       }
     >
       <FlatList
-        data={cartData?.customerCart?.items ?? []}
+        data={cartData?.items ?? []}
         renderItem={({ item, index }) => (
           <CartListItem
             item={item}
@@ -59,7 +59,7 @@ const CartScreen = ({ navigation }: Props): React.ReactElement => {
           />
         )}
         contentContainerStyle={
-          cartData?.customerCart?.items.length === 0 && styles.fullScreen
+          cartData?.items.length === 0 && styles.fullScreen
         }
         keyExtractor={item => String(item.id)}
         ListEmptyComponent={renderEmptyList}

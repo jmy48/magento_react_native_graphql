@@ -3,8 +3,9 @@ import { StyleSheet } from 'react-native';
 import { Image, ListItem } from 'react-native-elements';
 import { translate } from '../../i18n';
 import { DIMENS } from '../../constants';
-import { CartItemType } from '../../apollo/queries/basicCartFragment';
+// import { CartItemType } from '../../apollo/queries/basicCartFragment';
 import { formatPrice } from '../../logic';
+import { CartItemType } from '../../logic/cart/Cart';
 
 type Props = {
   item: CartItemType;
@@ -33,7 +34,7 @@ const CartListItem = ({
           item.quantity
         }`}</ListItem.Subtitle>
         <ListItem.Subtitle>{`${translate('common.price')} : ${formatPrice(
-          item.prices.rowTotal,
+          item.price,
         )}`}</ListItem.Subtitle>
       </ListItem.Content>
       <ListItem.Chevron name="delete" onPress={() => onRemovePress(index)} />
