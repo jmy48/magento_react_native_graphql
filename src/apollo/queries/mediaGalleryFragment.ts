@@ -1,10 +1,12 @@
 import { gql } from '@apollo/client';
+import { ImageSource } from 'react-native-vector-icons/Icon';
 
 export interface MediaGalleryItemType {
   disabled: boolean;
   label: string;
   position: number;
-  url: string;
+  // url: string;
+  source: ImageSource;
 }
 
 export const MEDIA_GALLERY_FRAGMENT = gql`

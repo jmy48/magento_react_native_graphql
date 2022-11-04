@@ -32,9 +32,11 @@ interface Result {
 }
 
 export const useCart = (): Result => {
-  const { data: { isLoggedIn = true } = {} } = useQuery<IsLoggedInDataType>(
-    IS_LOGGED_IN,
-  );
+  // const { data: { isLoggedIn = true } = {} } = useQuery<IsLoggedInDataType>(
+  //   IS_LOGGED_IN,
+  // );
+
+  const isLoggedIn = true;
 
   const [cart, setCart] = useState<Cart>({
     id: 'cart0',
@@ -42,6 +44,10 @@ export const useCart = (): Result => {
     prices: { grandTotal: undefined },
     totalQuantity: 0,
   });
+
+  // function addProductsToCart(sku: string) {
+
+  // }
 
   // const [
   //   fetchCart,

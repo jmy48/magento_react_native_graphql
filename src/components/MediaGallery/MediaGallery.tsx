@@ -41,7 +41,7 @@ const MediaGallery = ({
     return (
       <View>
         <Image
-          source={{ uri: item.url }}
+          source={item.source}
           resizeMode={resizeMode}
           style={imageDimension}
         />

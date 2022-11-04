@@ -10,10 +10,12 @@ import type { AppStackParamList } from './StackNavigator';
 import { IS_LOGGED_IN, IsLoggedInDataType } from '../apollo/queries/isLoggedIn';
 import { showLoginPrompt } from '../logic';
 import { useCart } from '../logic/cart/useCart';
+import DeezNutsScreen from '../screens/DeezNutsScreen/DeezNutsScreen';
 
 export type BottomTabNavigatorParamList = {
   [Routes.NAVIGATION_TO_HOME_SCREEN]: undefined;
   [Routes.NAVIGATION_TO_PROFILE_SCREEN]: undefined;
+  [Routes.NAVIGATION_TO_DEEZ_NUTS]: undefined;
   [Routes.NAVIGATION_TO_CART_SCREEN]: undefined;
 };
 
@@ -27,7 +29,7 @@ type Props = {
 };
 
 const BottomTabNavigator = ({ navigation }: Props) => {
-  const { data } = useQuery<IsLoggedInDataType>(IS_LOGGED_IN);
+  // const data = true; //useQuery<IsLoggedInDataType>(IS_LOGGED_IN);
   const { cartCount } = useCart();
   const { theme } = useContext(ThemeContext);
 
@@ -46,6 +48,28 @@ const BottomTabNavigator = ({ navigation }: Props) => {
       <Tab.Screen
         name={Routes.NAVIGATION_TO_PROFILE_SCREEN}
         component={ProfileScreen}
+        options={{
+          tabBarLabel: translate('profileScreen.appbarTitle'),
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="person" color={color} size={size} />
+          ),
+        }}
+        listeners={{
+          tabPress: e => {
+            if (false /*!data?.isLoggedIn*/) {
+              // Prevent default action
+              e.preventDefault();
+              showLoginPrompt(
+                translate('profileScreen.guestUserPromptMessage'),
+                navigation,
+              );
+            }
+          },
+        }}
+      />
+      <Tab.Screen
+        name={Routes.NAVIGATION_TO_DEEZ_NUTS}
+        component={DeezNutsScreen}
         options={{
           tabBarLabel: translate('profileScreen.appbarTitle'),
           tabBarIcon: ({ color, size }) => (

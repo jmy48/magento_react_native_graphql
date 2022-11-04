@@ -10,6 +10,7 @@ import {
 import type { ConfigurableProductVariant } from '../../apollo/queries/configurableProductFragment';
 import { PriceRangeType } from '../../apollo/queries/productPriceFragment';
 import type { MediaGalleryItemType } from '../../apollo/queries/mediaGalleryFragment';
+import { getProductDetailsData } from './hardcodedGetCategoryProducts';
 
 interface Props {
   sku: string;
@@ -57,24 +58,24 @@ export const useProductDetails = ({ sku }: Props): Result => {
     selectedConfigurableProductOptions,
     setSelectedConfigurableProductOptions,
   ] = useState<SelectedConfigurableProductOptions>({});
+
   const [
     selectedVariant,
     setSelectedVariant,
   ] = useState<ConfigurableProductVariant | null>(null);
+
   const [{ priceRange, mediaGallery }, setState] = useReducer<
     React.Reducer<ProductState, ProductState>
   >((prevState, newState) => ({ ...prevState, ...newState }), {
     priceRange: null,
     mediaGallery: [],
   });
-  const { data, loading, error } = useQuery<
-    ProductDetailsDataType,
-    GetProductDetailsVars
-  >(GET_PRODUCT_DETAILS, {
-    variables: {
-      sku,
-    },
-  });
+
+  const [data, setData] = useState<ProductDetailsDataType>(
+    getProductDetailsData(sku),
+  );
+  const loading = false;
+  const error = undefined;
 
   useEffect(() => {
     // User has selected configurable options, find the matching simple product
@@ -88,10 +89,11 @@ export const useProductDetails = ({ sku }: Props): Result => {
       );
       setSelectedVariant(variant);
     }
-  }, [data, selectedConfigurableProductOptions]);
+  }, [selectedConfigurableProductOptions]);
 
   useEffect(() => {
     if (data?.products?.items?.[0]) {
+      //&&Object.keys(selectedConfigurableProductOptions).length > 0
       if (selectedVariant) {
         setState({
           priceRange: selectedVariant.product.priceRange,
@@ -107,7 +109,7 @@ export const useProductDetails = ({ sku }: Props): Result => {
         });
       }
     }
-  }, [data, selectedVariant]);
+  }, [selectedVariant]);
 
   const handleSelectedConfigurableOptions: HandleSelectedConfigurableOptions = (
     optionCode,

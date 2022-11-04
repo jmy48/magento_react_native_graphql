@@ -3,6 +3,7 @@ export enum Routes {
   NAVIGATION_TO_CATEGORIES_SCREEN = 'CategoriesScreen',
   NAVIGATION_TO_CART_SCREEN = 'CartScreen',
   NAVIGATION_TO_PROFILE_SCREEN = 'ProfileScreen',
+  NAVIGATION_TO_DEEZ_NUTS = 'DeezNuts',
   NAVIGATION_TO_PRODUCT_LIST_SCREEN = 'ProductListScreen',
   NAVIGATION_TO_PRODUCT_DETAILS_SCREEN = 'ProductDetailsScreen',
   NAVIGATION_TO_AUTHENTICATION_SPLASH_SCREEN = 'AuthenticationSplashScreen',

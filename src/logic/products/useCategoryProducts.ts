@@ -7,6 +7,7 @@ import {
   SortEnum,
 } from '../../apollo/queries/getCategoryProducts';
 import { LIMITS } from '../../constants';
+import { getHardedCategoryProductsData } from './hardcodedGetCategoryProducts';
 
 interface Props {
   categoryId: string;
@@ -23,52 +24,58 @@ interface Result {
 export const useCategoryProducts = ({ categoryId: id }: Props): Result => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const { refetch, loading, data, error, fetchMore, networkStatus } = useQuery<
-    CategoryProductsDataType,
-    GetCategoryProductsVars
-  >(GET_CATGEORY_PRODUCTS, {
-    variables: {
-      id,
-      pageSize: LIMITS.categoryProductsPageSize,
-      currentPage: 1,
-    },
-    notifyOnNetworkStatusChange: true,
-  });
+  // const { refetch, loading, data, error, fetchMore, networkStatus } = useQuery<
+  //   CategoryProductsDataType,
+  //   GetCategoryProductsVars
+  // >(GET_CATGEORY_PRODUCTS, {
+  //   variables: {
+  //     id,
+  //     pageSize: LIMITS.categoryProductsPageSize,
+  //     currentPage: 1,
+  //   },
+  //   notifyOnNetworkStatusChange: true,
+  // });
 
-  useEffect(() => {
-    if (!loading && currentPage !== 1) {
-      fetchMore({
-        variables: {
-          currentPage,
-        },
-      });
-    }
-  }, [currentPage]);
+  // useEffect(() => {
+  //   if (!loading && currentPage !== 1) {
+  //     fetchMore({
+  //       variables: {
+  //         currentPage,
+  //       },
+  //     });
+  //   }
+  // }, [currentPage]);
 
-  const loadMore = () => {
-    if (loading) {
-      return;
-    }
+  // const loadMore = () => {
+  //   if (loading) {
+  //     return;
+  //   }
 
-    if (
-      currentPage * LIMITS.categoryProductsPageSize ===
-        data?.products?.items?.length &&
-      data?.products?.items.length < data?.products?.totalCount
-    ) {
-      setCurrentPage(prevState => prevState + 1);
-    }
-  };
+  //   if (
+  //     currentPage * LIMITS.categoryProductsPageSize ===
+  //       data?.products?.items?.length &&
+  //     data?.products?.items.length < data?.products?.totalCount
+  //   ) {
+  //     setCurrentPage(prevState => prevState + 1);
+  //   }
+  // };
 
-  const refresh = ({
-    price,
-    name,
-  }: { price?: SortEnum; name?: SortEnum } = {}) => {
-    refetch({
-      price,
-      name,
-    });
-    setCurrentPage(1);
-  };
+  // const refresh = ({
+  //   price,
+  //   name,
+  // }: { price?: SortEnum; name?: SortEnum } = {}) => {
+  //   refetch({
+  //     price,
+  //     name,
+  //   });
+  //   setCurrentPage(1);
+  // };
+
+  const data: CategoryProductsDataType = getHardedCategoryProductsData(1);
+  const networkStatus: NetworkStatus = 7;
+  const error = undefined;
+  const refresh = () => {};
+  const loadMore = () => {};
 
   return {
     data,

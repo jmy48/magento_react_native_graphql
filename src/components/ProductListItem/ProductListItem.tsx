@@ -25,8 +25,9 @@ const ProductListItem = ({
 }: Props): React.ReactElement => {
   const { theme } = useContext(ThemeContext);
   const renderImage = () => {
-    const uri = `${item.smallImage.url}?width=${COLUMN_WIDTH}`;
-    return <Image source={{ uri }} style={styles.image} />;
+    // const uri = `${item.smallImage.url}?width=${COLUMN_WIDTH}`;
+    // return <Image source={{ uri }} style={styles.image} />;
+    return <Image source={item.smallImage.source} style={styles.image} />;
   };
 
   return (

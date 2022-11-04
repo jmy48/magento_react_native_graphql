@@ -48,6 +48,7 @@ const ProductDetailsScreen = ({
   } = useProductDetails({
     sku,
   });
+
   const {
     cartCount,
     isLoggedIn,

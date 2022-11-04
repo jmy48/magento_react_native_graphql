@@ -1,13 +1,14 @@
 import { gql } from '@apollo/client';
 import { PRODUCT_PRICE_FRAGMENT } from './productPriceFragment';
 import type { PriceRangeType } from './productPriceFragment';
+import { ImageSource } from 'react-native-vector-icons/Icon';
 
 export interface ProductInListType {
   id: number;
   sku: string;
   name: string;
   smallImage: {
-    url: string;
+    source: ImageSource;
   };
   priceRange: PriceRangeType;
 }
