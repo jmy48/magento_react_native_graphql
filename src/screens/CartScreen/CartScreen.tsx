@@ -9,6 +9,7 @@ import { translate } from '../../i18n';
 import CartListItem from './CartListItem';
 import { SPACING } from '../../constants';
 import { CartFooter } from './CartFooter';
+import { useNavigation } from '@react-navigation/native';
 
 type Props = {
   navigation: BottomTabNavigationProp<
@@ -18,10 +19,14 @@ type Props = {
 };
 
 const CartScreen = ({ navigation }: Props): React.ReactElement => {
+  let global_navigator = useNavigation();
   const { cartData, cartLoading, cartError } = useCart();
   const handleOnPress = (index: number) => console.log(index);
   const handleRemoveItem = (index: number) => console.log(index);
-  const handlePlaceOrder = () => console.log('handle place order');
+  const handlePlaceOrder = () => {
+    console.log("handlePlaceOrder handled");
+    global_navigator.navigate(Routes.NAVIGATION_TO_ORDER_CONFIRMED_SCREEN)
+  };
 
   const renderEmptyList = () =>
     (!cartLoading && (
@@ -61,7 +66,7 @@ const CartScreen = ({ navigation }: Props): React.ReactElement => {
         contentContainerStyle={
           cartData?.items.length === 0 && styles.fullScreen
         }
-        keyExtractor={item => String(item.id)}
+        keyExtractor={item => String(item.product.sku)}
         ListEmptyComponent={renderEmptyList}
       />
     </GenericTemplate>

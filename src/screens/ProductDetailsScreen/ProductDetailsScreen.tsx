@@ -19,6 +19,7 @@ import { translate } from '../../i18n';
 import { useCart } from '../../logic/cart/useCart';
 import { ProductTypeEnum } from '../../apollo/queries/getProductDetails';
 import ConfigurableProductOptions from './ConfigurableProductOptions';
+import { useNavigation } from '@react-navigation/native';
 
 type Props = {
   navigation: StackNavigationProp<
@@ -49,6 +50,9 @@ const ProductDetailsScreen = ({
     sku,
   });
 
+  // console.log("Product details screen productDetails: ");
+  // console.log(productDetails);
+
   const {
     cartCount,
     isLoggedIn,
@@ -56,6 +60,7 @@ const ProductDetailsScreen = ({
     addToCartLoading,
   } = useCart();
   const { theme } = useContext(ThemeContext);
+  let navigator_two = useNavigation();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -65,7 +70,7 @@ const ProductDetailsScreen = ({
             title={translate('common.cart')}
             iconName="shopping-cart"
             onPress={() =>
-              navigation.navigate(Routes.NAVIGATION_TO_CART_SCREEN)
+              navigator_two.navigate(Routes.NAVIGATION_TO_CART_SCREEN)
             }
           />
           {cartCount !== '' && (
@@ -82,22 +87,19 @@ const ProductDetailsScreen = ({
   }, [navigation, cartCount]);
 
   const handleAddToCart = () => {
-    if (!isLoggedIn) {
-      showLoginPrompt(
-        translate('productDetailsScreen.guestUserPromptMessage'),
-        navigation,
-      );
-      return;
-    }
+    // if (!isLoggedIn) {
+    //   showLoginPrompt(
+    //     translate('productDetailsScreen.guestUserPromptMessage'),
+    //     navigation,
+    //   );
+    //   return;
+    // }
 
     if (
       productDetails?.type === ProductTypeEnum.SIMPLE ||
       productDetails?.type === ProductTypeEnum.GROUPED
     ) {
-      addProductsToCart({
-        quantity: 1,
-        sku: productDetails.sku,
-      });
+      addProductsToCart(productDetails);
     } else {
       showMessage({
         message: translate('common.attention'),

@@ -20,7 +20,7 @@ export const getHardedCategoryProductsData = (
           items: [
             {
               id: 0,
-              sku: '0',
+              sku: 'this_is_the_sku_im_gonna_blow_your_mom',
               name: 'product_name',
               smallImage: {
                 source: require('./assets/gucci_bag_0.png'),

@@ -21,8 +21,8 @@ const CartListItem = ({
   onRemovePress,
 }: Props): React.ReactElement => {
   const renderImage = () => {
-    const uri = `${item.product.small_image.url}?width=${DIMENS.cartScreen.imageSize}`;
-    return <Image source={{ uri }} style={styles.image} />;
+    // const uri = `${item.product.small_image.url}?width=${DIMENS.cartScreen.imageSize}`;
+    return <Image source={item.product.small_image.source} style={styles.image} />;
   };
 
   return (

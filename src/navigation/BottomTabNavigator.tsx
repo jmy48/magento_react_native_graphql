@@ -11,6 +11,7 @@ import { IS_LOGGED_IN, IsLoggedInDataType } from '../apollo/queries/isLoggedIn';
 import { showLoginPrompt } from '../logic';
 import { useCart } from '../logic/cart/useCart';
 import DeezNutsScreen from '../screens/DeezNutsScreen/DeezNutsScreen';
+import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 
 export type BottomTabNavigatorParamList = {
   [Routes.NAVIGATION_TO_HOME_SCREEN]: undefined;
@@ -21,15 +22,18 @@ export type BottomTabNavigatorParamList = {
 
 const Tab = createBottomTabNavigator<BottomTabNavigatorParamList>();
 
-type Props = {
+export type Props = {
   navigation: StackNavigationProp<
     AppStackParamList,
     Routes.NAVIGATION_TO_HOME_SCREEN
-  >;
+  >,
+};
+
+let a: Props = {
+  navigation: {}
 };
 
 const BottomTabNavigator = ({ navigation }: Props) => {
-  // const data = true; //useQuery<IsLoggedInDataType>(IS_LOGGED_IN);
   const { cartCount } = useCart();
   const { theme } = useContext(ThemeContext);
 
@@ -54,18 +58,18 @@ const BottomTabNavigator = ({ navigation }: Props) => {
             <Icon name="person" color={color} size={size} />
           ),
         }}
-        listeners={{
-          tabPress: e => {
-            if (false /*!data?.isLoggedIn*/) {
-              // Prevent default action
-              e.preventDefault();
-              showLoginPrompt(
-                translate('profileScreen.guestUserPromptMessage'),
-                navigation,
-              );
-            }
-          },
-        }}
+        // listeners={{
+        //   tabPress: e => {
+        //     if (false /*!data?.isLoggedIn*/) {
+        //       // Prevent default action
+        //       e.preventDefault();
+        //       showLoginPrompt(
+        //         translate('profileScreen.guestUserPromptMessage'),
+        //         navigation,
+        //       );
+        //     }
+        //   },
+        // }}
       />
       <Tab.Screen
         name={Routes.NAVIGATION_TO_DEEZ_NUTS}
@@ -75,18 +79,6 @@ const BottomTabNavigator = ({ navigation }: Props) => {
           tabBarIcon: ({ color, size }) => (
             <Icon name="person" color={color} size={size} />
           ),
-        }}
-        listeners={{
-          tabPress: e => {
-            if (false /*!data?.isLoggedIn*/) {
-              // Prevent default action
-              e.preventDefault();
-              showLoginPrompt(
-                translate('profileScreen.guestUserPromptMessage'),
-                navigation,
-              );
-            }
-          },
         }}
       />
       <Tab.Screen
@@ -102,18 +94,18 @@ const BottomTabNavigator = ({ navigation }: Props) => {
           },
           ...(cartCount !== '' && { tabBarBadge: cartCount }),
         }}
-        listeners={{
-          tabPress: e => {
-            if (false /*!data?.isLoggedIn*/) {
-              // Prevent default action
-              e.preventDefault();
-              showLoginPrompt(
-                translate('cartScreen.guestUserPromptMessage'),
-                navigation,
-              );
-            }
-          },
-        }}
+        // listeners={{
+        //   tabPress: e => {
+        //     if (false /*!data?.isLoggedIn*/) {
+        //       // Prevent default action
+        //       e.preventDefault();
+        //       showLoginPrompt(
+        //         translate('cartScreen.guestUserPromptMessage'),
+        //         navigation,
+        //       );
+        //     }
+        //   },
+        // }}
       />
     </Tab.Navigator>
   );

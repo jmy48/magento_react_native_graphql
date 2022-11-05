@@ -11,7 +11,11 @@ import {
   CategoriesScreen,
   ProductListScreen,
   ProductDetailsScreen,
+  CartScreen,
 } from '../screens';
+import CheckoutScreen from '../screens/CheckoutScreen/CheckoutScreen';
+
+// import CheckoutScreen from '../screens/CheckoutScreen';
 
 export type AppStackParamList = {
   [Routes.NAVIGATION_TO_HOME_SCREEN]: undefined;
@@ -29,6 +33,7 @@ export type AppStackParamList = {
     sku: string;
   };
   [Routes.NAVIGATION_TO_SEARCH_SCREEN]: undefined;
+  [Routes.NAVIGATION_TO_ORDER_CONFIRMED_SCREEN]: undefined;
 };
 
 const Stack = createStackNavigator<AppStackParamList>();
@@ -110,6 +115,15 @@ const StackNavigator = () => (
       component={SearchScreen}
       options={{
         headerShown: false,
+      }}
+    />
+    <Stack.Screen
+      name={Routes.NAVIGATION_TO_ORDER_CONFIRMED_SCREEN}
+      component={CheckoutScreen}
+      options={() => {
+        return {
+          title: "Checkout Confirmed",
+        };
       }}
     />
   </Stack.Navigator>

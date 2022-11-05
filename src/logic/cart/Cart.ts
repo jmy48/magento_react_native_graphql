@@ -1,19 +1,19 @@
+import { ImageSource } from "react-native-vector-icons/Icon";
+
 export class Cart {
-  id!: string;
-  items!: Array<CartItemType>;
-  prices!: {
-    grandTotal: Price | undefined;
-  };
-  totalQuantity!: number;
+  items: Array<CartItemType> = [];
+  prices: {
+    grandTotal: Price;  // | undefined;
+  } = {grandTotal: {value: 0, currency: "USD"}};
+  totalQuantity: number = 0;
 }
 
 export class CartItemType {
-  id!: number;
   product!: {
     sku: string;
     name: string;
     small_image: {
-      url: string;
+      source: ImageSource;
     };
   };
   price!: Price;

@@ -5,12 +5,15 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import StackNavigator from './StackNavigator';
 import { DrawerScreen } from '../screens';
 import { navigationLightTheme, navigationDarkTheme } from '../theme';
+import { Provider } from 'react-redux';
+import { store } from '../logic/store';
 
 const Drawer = createDrawerNavigator();
 
 const RootNavigator = () => {
   const scheme = useColorScheme();
   return (
+    <Provider store={store}>
     <NavigationContainer
       theme={scheme === 'dark' ? navigationDarkTheme : navigationLightTheme}
     >
@@ -24,6 +27,7 @@ const RootNavigator = () => {
         />
       </Drawer.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 };
 

@@ -10,4 +10,5 @@ export enum Routes {
   NAVIGATION_TO_LOGIN_SCREEN = 'LoginScreen',
   NAVIGATION_TO_SIGNUP_SCREEN = 'SignupScreen',
   NAVIGATION_TO_SEARCH_SCREEN = 'SearchScreen',
+  NAVIGATION_TO_ORDER_CONFIRMED_SCREEN = 'OrderConfirmedScreen',
 }
